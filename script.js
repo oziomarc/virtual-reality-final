@@ -126,7 +126,7 @@ function shatter() {
 			d = Math.sqrt(dx * dx + dy * dy),
 			rx = 30 * sign(dy),
 			ry = 90 * -sign(dx),
-			delay = d * 0.003 * randomRange(0.9, 1.1);
+			delay = d * 0.002 * randomRange(0.9, 1.1);
 		fragment.canvas.style.zIndex = Math.floor(d).toString();
 
 		var tl1 = new TimelineMax();
