@@ -1,41 +1,34 @@
-// triangulation using https://github.com/ironwallaby/delaunay
-
-// const { default: gsap } = require("gsap");
-
 const TWO_PI = Math.PI * 2;
 
 var images = [],
 	imageIndex = 0;
 
+var container = document.getElementById('container');
+
 var image,
-	imageWidth = window.innerWidth,
-	imageHeight = window.innerHeight;
+	imageWidth = container.innerWidth,
+	imageHeight = container.innerHeight;
 
 var vertices = [],
 	indices = [],
 	fragments = [];
 
-var container = document.getElementById('container');
-
-var clickPosition = [imageWidth * 0.5, imageHeight * 0.5];
+var clickPosition = [imageWidth, imageHeight];
 
 window.onload = function() {
 	gsap.set(container, { perspective: 500 });
 
-	// images from reddit/r/wallpapers
 	var urls = [
 		'files/background.png'
 	],
 		image,
 		loaded = 0;
-	// very quick and dirty hack to load and display the first image asap
 	images[0] = image = new Image();
 	image.onload = function() {
 		if (++loaded === 1) {
 			imagesLoaded();
 			for (var i = 1; i < 4; i++) {
 				images[i] = image = new Image();
-
 				image.src = urls[i];
 			}
 		}
@@ -45,8 +38,6 @@ window.onload = function() {
 
 function imagesLoaded() {
 	placeImage(false);
-	// triangulate();
-	// shatter();
 }
 
 function placeImage(transitionIn) {
@@ -131,7 +122,6 @@ function shatter() {
 
 		var tl1 = new TimelineMax();
 
-
 		tl1.to(fragment.canvas, 1, {
 			z: -500,
 			rotationX: rx,
@@ -151,20 +141,13 @@ function shatter() {
 }
 
 function shatterCompleteHandler() {
-	// add pooling?
 	fragments.forEach(function(f) {
 		container.removeChild(f.canvas);
 	});
 	fragments.length = 0;
 	vertices.length = 0;
 	indices.length = 0;
-
-	// placeImage();
 }
-
-//////////////
-// MATH UTILS
-//////////////
 
 function randomRange(min, max) {
 	return min + (max - min) * Math.random();

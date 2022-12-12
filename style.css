@@ -30,6 +30,7 @@ canvas {
     -webkit-backface-visibility: hidden;
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
+    width: 100%;
 }
 
 #container img {
